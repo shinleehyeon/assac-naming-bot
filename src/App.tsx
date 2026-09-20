@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Bot, Moon, Send, Sun, UserRound } from "lucide-react"
+import { Bot, Check, Copy, Moon, Send, Sun, UserRound } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -63,6 +63,116 @@ function formatMessage(text: string) {
 
     return <span key={`${part}-${index}`}>{part}</span>
   })
+}
+
+const TAG_KEYS = ["Team", "Owner", "AutoOnOff", "ManagedBy"] as const
+
+function parseAssistantReply(text: string) {
+  const names = [
+    ...text.matchAll(/`([^`]+)`/g),
+    ...text.matchAll(
+      /(?<!`)\b(assac(?:\/[a-z0-9-]+)+|assac-[a-z0-9-]+(?:\/[a-z0-9-]+)*|\/assac\/[a-z0-9-]+)\b/g,
+    ),
+  ]
+    .map((match) => match[1])
+    .filter((name, index, all) => name && all.indexOf(name) === index)
+
+  const tags = [...text.matchAll(
+    new RegExp(
+      `(?:^|\\n)\\s*-?\\s*(${TAG_KEYS.join("|")})\\s*[:=]\\s*([^\\s,]+)`,
+      "gi",
+    ),
+  )].map((match) => ({
+    key: match[1],
+    value: match[2].replace(/[`]/g, ""),
+  }))
+
+  const note = text
+    .replace(/`[^`]+`/g, "")
+    .replace(
+      new RegExp(
+        `(?:^|\\n)\\s*-?\\s*(?:${TAG_KEYS.join("|")})\\s*[:=]\\s*[^\\s,]+`,
+        "gi",
+      ),
+      "",
+    )
+    .replace(/^(이름|태그)\s*[:：]\s*/gim, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim()
+
+  return { names, tags, note }
+}
+
+function CopyName({ name }: { name: string }) {
+  const [copied, setCopied] = useState(false)
+
+  return (
+    <div className="flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-2.5 py-1.5">
+      <code className="min-w-0 flex-1 font-mono text-[0.8rem] break-all">
+        {name}
+      </code>
+      <Button
+        type="button"
+        variant="outline"
+        size="xs"
+        onClick={() => {
+          void navigator.clipboard.writeText(name).then(() => {
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1200)
+          })
+        }}
+      >
+        {copied ? <Check /> : <Copy />}
+        {copied ? "복사됨" : "복사"}
+      </Button>
+    </div>
+  )
+}
+
+function AssistantBody({ text }: { text: string }) {
+  if (!text) {
+    return <p>생각 중...</p>
+  }
+
+  if (text.startsWith("오류:") || text === WELCOME) {
+    return <div className="whitespace-pre-wrap">{formatMessage(text)}</div>
+  }
+
+  const { names, tags, note } = parseAssistantReply(text)
+
+  if (names.length === 0 && tags.length === 0) {
+    return <div className="whitespace-pre-wrap">{formatMessage(text)}</div>
+  }
+
+  return (
+    <div className="space-y-3">
+      {names.length > 0 ? (
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-muted-foreground">이름</p>
+          {names.map((name) => (
+            <CopyName key={name} name={name} />
+          ))}
+        </div>
+      ) : null}
+      {tags.length > 0 ? (
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-muted-foreground">태그</p>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <Badge key={`${tag.key}-${tag.value}`} variant="secondary">
+                {tag.key}: {tag.value}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      ) : null}
+      {note ? (
+        <p className="text-sm leading-6 text-muted-foreground whitespace-pre-wrap">
+          {note}
+        </p>
+      ) : null}
+    </div>
+  )
 }
 
 async function readChatStream(
@@ -262,8 +372,14 @@ export function App() {
                           : "max-w-[72ch]"
                     }
                   >
-                    <CardContent className="whitespace-pre-wrap leading-6">
-                      {formatMessage(message.content || "생각 중...")}
+                    <CardContent className="leading-6">
+                      {message.role === "assistant" ? (
+                        <AssistantBody text={message.content || "생각 중..."} />
+                      ) : (
+                        <div className="whitespace-pre-wrap">
+                          {formatMessage(message.content)}
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                   {message.role === "user" ? (
