@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Bot, Check, Copy, Moon, Send, Sun, UserRound } from "lucide-react"
 
+import { ConventionDropdown } from "@/components/convention-doc"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -323,7 +324,8 @@ export function App() {
                 OpenRouter로 컨벤션에 맞는 이름을 제안합니다
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
+              <ConventionDropdown />
               <Button
                 variant="outline"
                 size="icon"

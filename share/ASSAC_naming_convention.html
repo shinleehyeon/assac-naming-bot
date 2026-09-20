@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASSAC 네이밍 컨벤션</title>
+  <meta name="description" content="ASSAC 팀 리소스 이름·태그 기준. 원문은 ASSAC_naming_convention.md와 동일하다." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --paper: #fffdf8;
+      --ink: #1c1915;
+      --muted: #5c564c;
+      --line: #e4ddd0;
+      --accent: #2f6f4e;
+      --accent-soft: #e7f3ea;
+      --warn: #8a3b12;
+      --warn-soft: #f8ebe3;
+      --code: #14352a;
+      --code-bg: #eef4f0;
+      --shadow: 0 18px 50px rgba(40, 32, 18, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #efe4cc 0%, transparent 50%),
+        var(--bg);
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+    }
+    .wrap {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 880px);
+      gap: 32px;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    aside {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      max-height: calc(100vh - 48px);
+      overflow: auto;
+      padding-right: 8px;
+    }
+    .brand {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    aside h2 {
+      font-size: 15px;
+      margin: 0 0 16px;
+    }
+    nav { display: flex; flex-direction: column; gap: 4px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 5px 8px;
+      border-radius: 8px;
+    }
+    nav a:hover { background: #ece6d8; color: var(--ink); }
+    .toc-h3 { padding-left: 18px; font-size: 12px; }
+    main {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 40px 44px 56px;
+    }
+    .banner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .banner p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-size: 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    h1 { font-size: 34px; letter-spacing: -0.03em; margin: 0 0 16px; line-height: 1.25; }
+    h2 {
+      font-size: 22px;
+      margin: 44px 0 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    h3 { font-size: 17px; margin: 28px 0 10px; color: #2a2620; }
+    p, li { font-size: 15.5px; }
+    hr { border: 0; border-top: 1px dashed var(--line); margin: 28px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin: 14px 0 22px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 11px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f6f1e6;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background: #fbf8f1; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.86em;
+      color: var(--code);
+      background: var(--code-bg);
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+    pre {
+      background: #17241e;
+      color: #e8f3ec;
+      padding: 16px 18px;
+      border-radius: 14px;
+      overflow: auto;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    pre code { background: none; color: inherit; padding: 0; }
+    strong { font-weight: 700; }
+    .note {
+      background: var(--warn-soft);
+      color: var(--warn);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    footer {
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; padding: 20px 14px 48px; }
+      aside { position: static; max-height: none; }
+      main { padding: 24px 18px 36px; }
+      nav { display: none; }
+    }
+    @media print {
+      body { background: #fff; }
+      aside, .note { display: none; }
+      .wrap { display: block; padding: 0; }
+      main { box-shadow: none; border: 0; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside>
+      <div class="brand">ASSAC</div>
+      <h2>목차</h2>
+      <nav>
+        <a class="toc-h2" href="#0-이-문서를-읽는-순서">0. 이 문서를 읽는 순서</a>
+<a class="toc-h2" href="#1-아키텍처-인벤토리-만들-것-전부">1. 아키텍처 인벤토리 (만들 것 전부)</a>
+<a class="toc-h3" href="#1-1-트래픽-경로">1.1 트래픽 경로</a>
+<a class="toc-h3" href="#1-2-네트워크">1.2 네트워크</a>
+<a class="toc-h3" href="#1-3-서브넷-확정-목록">1.3 서브넷 확정 목록</a>
+<a class="toc-h3" href="#1-4-보안-그룹-확정-목록">1.4 보안 그룹 확정 목록</a>
+<a class="toc-h3" href="#1-5-컴퓨트-로드밸런싱">1.5 컴퓨트 · 로드밸런싱</a>
+<a class="toc-h3" href="#1-6-데이터">1.6 데이터</a>
+<a class="toc-h3" href="#1-7-엣지-스토리지">1.7 엣지 · 스토리지</a>
+<a class="toc-h3" href="#1-8-서버리스-ai">1.8 서버리스 · AI</a>
+<a class="toc-h3" href="#1-9-로그-관측-보안-비용">1.9 로그 · 관측 · 보안 · 비용</a>
+<a class="toc-h3" href="#1-10-cloudwatch-alarm-허용-목록">1.10 CloudWatch Alarm 허용 목록</a>
+<a class="toc-h3" href="#1-11-iam">1.11 IAM</a>
+<a class="toc-h3" href="#1-12-ci-cd-iac">1.12 CI/CD · IaC</a>
+<a class="toc-h2" href="#2-새-리소스-이름-조합">2. 새 리소스 이름 조합</a>
+<a class="toc-h3" href="#2-0-자주-쓰는-조합">2.0 자주 쓰는 조합</a>
+<a class="toc-h3" href="#2-1-허용-문자">2.1 허용 문자</a>
+<a class="toc-h3" href="#2-2-기본-형식">2.2 기본 형식</a>
+<a class="toc-h3" href="#2-3-약어-이-단어만">2.3 약어 (이 단어만)</a>
+<a class="toc-h3" href="#2-4-슬래시-예외-이-두-종류만">2.4 슬래시 예외 (이 두 종류만)</a>
+<a class="toc-h3" href="#2-5-이름을-aws가-정하는-리소스">2.5 이름을 AWS가 정하는 리소스</a>
+<a class="toc-h3" href="#2-6-길이">2.6 길이</a>
+<a class="toc-h2" href="#3-혼동-방지">3. 혼동 방지</a>
+<a class="toc-h2" href="#4-태그">4. 태그</a>
+<a class="toc-h2" href="#5-운영-규칙">5. 운영 규칙</a>
+<a class="toc-h2" href="#6-한눈에-보는-확정-이름">6. 한눈에 보는 확정 이름</a>
+      </nav>
+    </aside>
+    <main>
+      <div class="banner">
+        <div>
+          <div class="brand">공유용 핸드북</div>
+          <p>원문 <code>ASSAC_naming_convention.md</code>와 내용은 같다. 보기용으로만 따로 만든 파일이다.</p>
+        </div>
+        <div class="pills">
+          <span class="pill">ap-northeast-2</span>
+          <span class="pill">petclinic.hyeon.im</span>
+          <span class="pill">Team=ASSAC</span>
+        </div>
+      </div>
+      <div class="note">Slack·메일로 이 HTML만 보내면 됩니다. 브라우저에서 열고, 필요하면 인쇄 → PDF로 저장하세요.</div>
+      <h1 id="assac-네이밍-컨벤션">ASSAC 네이밍 컨벤션</h1>
+<p>이 문서가 유일한 기준이다.
+이미 아키텍처에 있는 것은 <strong>1장 확정 이름</strong>을 그대로 쓴다.
+아직 인벤토리에 없는 리소스(예: 부하테스트 Lambda)는 거절하지 말고 <strong>2장 규칙으로 조합</strong>한다.</p>
+<p>계정: ASSAC 팀 전용 1개. 앱: petclinic 3-tier 1개. 리전: <code>ap-northeast-2</code>. 도메인: <code>petclinic.hyeon.im</code>.
+이름과 태그에 <code>prod</code>, <code>dev</code>, <code>petclinic-3tier</code>를 넣지 않는다.</p>
+<hr>
+<h2 id="0-이-문서를-읽는-순서">0. 이 문서를 읽는 순서</h2>
+<ol>
+<li>만들고 싶은 것이 <strong>1장 인벤토리</strong>에 있는지 찾는다.</li>
+<li>있으면 <strong>그 칸의 이름만</strong> 쓴다. 변형하지 않는다.</li>
+<li>없으면 <strong>2장으로 이름을 조합</strong>한다. 인벤토리에 없다고 거절하지 않는다.</li>
+<li>같은 말을 여러 리소스로 들을 수 있으면 <strong>3장 혼동 방지</strong>를 본다.</li>
+</ol>
+<hr>
+<h2 id="1-아키텍처-인벤토리-만들-것-전부">1. 아키텍처 인벤토리 (만들 것 전부)</h2>
+<p>다이어그램에 있는 것과, 그걸 동작시키려면 반드시 같이 생기는 리소스만 적었다.
+ECS, DynamoDB 앱 테이블, SQS, 퍼블릭 ALB는 <strong>이 구성에 없다.</strong></p>
+<h3 id="1-1-트래픽-경로">1.1 트래픽 경로</h3>
+<p>사용자 → Route53(<code>petclinic.hyeon.im</code>) → CloudFront(+WAF) → (정적) S3 또는 (앱) VPC Origin → 내부 ALB → WAS ASG.
+WAF 로그 → CloudWatch Logs → Lambda → Slack.</p>
+<h3 id="1-2-네트워크">1.2 네트워크</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>개수</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>N1</td>
+<td>VPC</td>
+<td>1</td>
+<td><code>assac-vpc</code></td>
+<td>network-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>N2</td>
+<td>Internet Gateway</td>
+<td>1</td>
+<td><code>assac-igw</code></td>
+<td>network-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>N3</td>
+<td>Subnet</td>
+<td>6</td>
+<td>아래 1.3</td>
+<td>network-admin</td>
+<td>유형×AZ. 앱 이름 금지</td>
+</tr>
+<tr>
+<td>N4</td>
+<td>Route Table</td>
+<td>3</td>
+<td><code>assac-rt-public</code>, <code>assac-rt-was</code>, <code>assac-rt-db</code></td>
+<td>network-admin</td>
+<td>서브넷 유형당 1개. AZ로 쪼개지 않음</td>
+</tr>
+<tr>
+<td>N5</td>
+<td>NACL</td>
+<td>3</td>
+<td><code>assac-nacl-public</code>, <code>assac-nacl-was</code>, <code>assac-nacl-db</code></td>
+<td>network-admin</td>
+<td>라우트 테이블과 같은 유형 단어</td>
+</tr>
+<tr>
+<td>N6</td>
+<td>NAT Gateway</td>
+<td>1</td>
+<td><code>assac-nat-a</code></td>
+<td>network-admin</td>
+<td><strong>AZ-a만.</strong> AZ-c에 NAT를 두지 않음</td>
+</tr>
+<tr>
+<td>N7</td>
+<td>EIP</td>
+<td>1</td>
+<td><code>assac-eip-nat-a</code></td>
+<td>network-admin</td>
+<td>NAT 전용</td>
+</tr>
+<tr>
+<td>N8</td>
+<td>Security Group</td>
+<td>6</td>
+<td>아래 1.4</td>
+<td>표 참고</td>
+<td>용도당 1개. AZ 붙이지 않음</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-서브넷-확정-목록">1.3 서브넷 확정 목록</h3>
+<p>형식은 전부 <code>assac-subnet-&lt;유형&gt;-&lt;az&gt;</code>다. 유형은 <code>public</code> / <code>was</code> / <code>db</code>만. AZ는 <code>a</code> / <code>c</code>만.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>AZ</th>
+<th>유형</th>
+<th>이 안에 두는 것</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>assac-subnet-public-a</code></td>
+<td>a</td>
+<td>public</td>
+<td>NAT, Bastion</td>
+</tr>
+<tr>
+<td><code>assac-subnet-public-c</code></td>
+<td>c</td>
+<td>public</td>
+<td>예비 퍼블릭. NAT/Bastion 없음</td>
+</tr>
+<tr>
+<td><code>assac-subnet-was-a</code></td>
+<td>a</td>
+<td>private</td>
+<td>ASG, WAS-01, SSM, SNS</td>
+</tr>
+<tr>
+<td><code>assac-subnet-was-c</code></td>
+<td>c</td>
+<td>private</td>
+<td>WAS-02, API Gateway, Lambda</td>
+</tr>
+<tr>
+<td><code>assac-subnet-db-a</code></td>
+<td>a</td>
+<td>private</td>
+<td>RDS 한쪽, Secrets Manager</td>
+</tr>
+<tr>
+<td><code>assac-subnet-db-c</code></td>
+<td>c</td>
+<td>private</td>
+<td>RDS 다른쪽</td>
+</tr>
+</tbody></table>
+<p>금지: <code>assac-subnet-db-petclinic</code>, <code>assac-dbsubnet-*</code>를 서브넷으로 부르는 것, <code>assac-subnet-was-az-a</code>.</p>
+<h3 id="1-4-보안-그룹-확정-목록">1.4 보안 그룹 확정 목록</h3>
+<p>형식은 전부 <code>assac-sg-&lt;용도&gt;</code>다. 용도는 아래 6개만.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>Owner</th>
+<th>붙이는 대상</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>assac-sg-alb</code></td>
+<td>network-admin</td>
+<td>내부 ALB</td>
+</tr>
+<tr>
+<td><code>assac-sg-was</code></td>
+<td>app-deploy-admin</td>
+<td>WAS 인스턴스 / ASG</td>
+</tr>
+<tr>
+<td><code>assac-sg-db</code></td>
+<td>data-security-admin</td>
+<td>RDS</td>
+</tr>
+<tr>
+<td><code>assac-sg-bastion</code></td>
+<td>ops-admin</td>
+<td>Bastion</td>
+</tr>
+<tr>
+<td><code>assac-sg-lambda</code></td>
+<td>app-deploy-admin</td>
+<td>VPC Lambda</td>
+</tr>
+<tr>
+<td><code>assac-sg-apigw</code></td>
+<td>app-deploy-admin</td>
+<td>API Gateway VPC 연결</td>
+</tr>
+</tbody></table>
+<h3 id="1-5-컴퓨트-로드밸런싱">1.5 컴퓨트 · 로드밸런싱</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C1</td>
+<td>ALB (internal)</td>
+<td><code>assac-alb-internal</code></td>
+<td>network-admin</td>
+<td>퍼블릭 ALB 없음. 인터넷은 CloudFront</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>Target Group</td>
+<td><code>assac-tg-was</code></td>
+<td>app-deploy-admin</td>
+<td>ALB → WAS만</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>Launch Template</td>
+<td><code>assac-lt-was</code></td>
+<td>app-deploy-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>C4</td>
+<td>Auto Scaling Group</td>
+<td><code>assac-asg-was</code></td>
+<td>app-deploy-admin</td>
+<td>WAS 서브넷 a,c</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>EC2 WAS</td>
+<td><code>assac-was-01</code>, <code>assac-was-02</code></td>
+<td>app-deploy-admin</td>
+<td>01=AZ-a, 02=AZ-c. 이름에 petclinic 금지</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>EC2 Bastion</td>
+<td><code>assac-bastion</code></td>
+<td>ops-admin</td>
+<td>public-a. 1대라 번호 없음. SSM 사용</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>IAM Instance Profile</td>
+<td><code>assac-profile-was</code>, <code>assac-profile-bastion</code></td>
+<td>ops-admin</td>
+<td>역할과 짝</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>SNS (ASG 알림)</td>
+<td><code>assac-sns-asg-alert</code></td>
+<td>ops-admin</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>ASG가 인스턴스를 새로 띄워도 Name 태그는 <code>assac-was-01</code> / <code>02</code> 규칙을 유지한다. 세 번째 WAS가 생기면 <code>assac-was-03</code>이고 AZ는 a/c를 번갈아 쓴다.</p>
+<h3 id="1-6-데이터">1.6 데이터</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D1</td>
+<td>RDS (Multi-AZ)</td>
+<td><code>assac-rds-petclinic</code></td>
+<td>data-security-admin</td>
+<td>인스턴스 1세트. 서브넷이 아님</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>DB Subnet Group</td>
+<td><code>assac-sng-petclinic</code></td>
+<td>data-security-admin</td>
+<td>RDS가 쓰는 그룹. VPC 서브넷이 아님</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>Secrets Manager</td>
+<td><code>assac/rds/petclinic</code></td>
+<td>data-security-admin</td>
+<td>슬래시. 하이픈 이름 금지</td>
+</tr>
+</tbody></table>
+<p>RDS 엔드포인트·스냅샷 설명에도 <code>assac-rds-petclinic</code>을 쓴다.</p>
+<h3 id="1-7-엣지-스토리지">1.7 엣지 · 스토리지</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>E1</td>
+<td>Route53 레코드</td>
+<td><code>petclinic.hyeon.im</code></td>
+<td>edge-security-admin</td>
+<td>도메인 자체가 이름</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>ACM 인증서</td>
+<td>Tag <code>Name=assac-cert</code></td>
+<td>edge-security-admin</td>
+<td>CloudFront용은 보통 <code>us-east-1</code>. 인증서 CN은 도메인</td>
+</tr>
+<tr>
+<td>E3</td>
+<td>CloudFront</td>
+<td>Comment <code>assac-cdn</code></td>
+<td>edge-security-admin</td>
+<td>배포 ID는 AWS가 부여. 우리가 정하는 이름은 Comment/Tag</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>CloudFront VPC Origin</td>
+<td>Comment <code>assac-vpc-origin</code></td>
+<td>edge-security-admin</td>
+<td>ALB로 연결</td>
+</tr>
+<tr>
+<td>E5</td>
+<td>WAF Web ACL</td>
+<td><code>assac-waf-cloudfront</code></td>
+<td>edge-security-admin</td>
+<td>CloudFront 전용. ALB에 WAF 없음</td>
+</tr>
+<tr>
+<td>E6</td>
+<td>S3 정적</td>
+<td><code>assac-static-&lt;acct4&gt;</code></td>
+<td>edge-security-admin</td>
+<td>CloudFront origin</td>
+</tr>
+<tr>
+<td>E7</td>
+<td>S3 로그</td>
+<td><code>assac-logs-&lt;acct4&gt;</code></td>
+<td>ops-admin</td>
+<td>CF/ALB/WAF 로그 버킷</td>
+</tr>
+<tr>
+<td>E8</td>
+<td>S3 Terraform state</td>
+<td><code>assac-terraform-state-&lt;acct4&gt;</code></td>
+<td>ops-admin</td>
+<td>IaC. 앱 버킷과 분리</td>
+</tr>
+</tbody></table>
+<p><code>&lt;acct4&gt;</code>는 계정 ID 마지막 4자리. <strong>팀에서 한 번 정하면 모든 S3에 같은 값을 쓴다.</strong> 예: <code>3921</code>.</p>
+<h3 id="1-8-서버리스-ai">1.8 서버리스 · AI</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S1</td>
+<td>Lambda (WAF→Slack)</td>
+<td><code>assac-lambda-waf-alert</code></td>
+<td>edge-security-admin</td>
+<td>리전 Lambda. VPC 불필요하면 SG 없음</td>
+</tr>
+<tr>
+<td>S2</td>
+<td>Lambda (Bedrock/챗봇)</td>
+<td><code>assac-lambda-chatbot</code></td>
+<td>app-deploy-admin</td>
+<td>was-c, <code>assac-sg-lambda</code></td>
+</tr>
+<tr>
+<td>S3</td>
+<td>API Gateway</td>
+<td><code>assac-apigw-chatbot</code></td>
+<td>app-deploy-admin</td>
+<td>Lambda 챗봇 앞단</td>
+</tr>
+<tr>
+<td>S4</td>
+<td>Bedrock</td>
+<td>이름 없음</td>
+<td>app-deploy-admin</td>
+<td>관리형 모델. IAM으로만 통제</td>
+</tr>
+</tbody></table>
+<p>기능 단어는 고정이다. <code>assac-lambda-waf</code>, <code>assac-lambda-alert</code>처럼 줄이지 않는다.</p>
+<h3 id="1-9-로그-관측-보안-비용">1.9 로그 · 관측 · 보안 · 비용</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>AWS 리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>O1</td>
+<td>CW Log Group (WAF)</td>
+<td><code>/assac/waf-logs</code></td>
+<td>edge-security-admin</td>
+<td>앞 슬래시 필수</td>
+</tr>
+<tr>
+<td>O2</td>
+<td>CW Log Group (WAS)</td>
+<td><code>/assac/was</code></td>
+<td>app-deploy-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O3</td>
+<td>CW Log Group (ALB)</td>
+<td><code>/assac/alb</code></td>
+<td>network-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O4</td>
+<td>CW Log Group (Lambda WAF)</td>
+<td><code>/assac/lambda-waf-alert</code></td>
+<td>edge-security-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O5</td>
+<td>CW Log Group (Lambda 챗봇)</td>
+<td><code>/assac/lambda-chatbot</code></td>
+<td>app-deploy-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O6</td>
+<td>CW Dashboard</td>
+<td><code>assac-dashboard</code></td>
+<td>ops-admin</td>
+<td>1개</td>
+</tr>
+<tr>
+<td>O7</td>
+<td>CW Alarm</td>
+<td><code>assac-alarm-&lt;지표&gt;</code></td>
+<td>ops-admin</td>
+<td>허용 지표는 1.10</td>
+</tr>
+<tr>
+<td>O8</td>
+<td>AMP Workspace</td>
+<td><code>assac-amp</code></td>
+<td>ops-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O9</td>
+<td>AMG Workspace</td>
+<td><code>assac-amg</code></td>
+<td>ops-admin</td>
+<td></td>
+</tr>
+<tr>
+<td>O10</td>
+<td>GuardDuty</td>
+<td>Tag <code>Name=assac-guardduty</code></td>
+<td>data-security-admin</td>
+<td>리전당 detector 1개</td>
+</tr>
+<tr>
+<td>O11</td>
+<td>Budget</td>
+<td><code>assac-budget</code></td>
+<td>ops-admin</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="1-10-cloudwatch-alarm-허용-목록">1.10 CloudWatch Alarm 허용 목록</h3>
+<p>새 알람이 필요하면 이 표에 추가한 뒤 만든다.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>대상</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>assac-alarm-alb-5xx</code></td>
+<td>ALB 5xx</td>
+</tr>
+<tr>
+<td><code>assac-alarm-alb-unhealthy</code></td>
+<td>TG unhealthy host</td>
+</tr>
+<tr>
+<td><code>assac-alarm-asg-cpu</code></td>
+<td>WAS ASG CPU</td>
+</tr>
+<tr>
+<td><code>assac-alarm-rds-cpu</code></td>
+<td>RDS CPU</td>
+</tr>
+<tr>
+<td><code>assac-alarm-rds-storage</code></td>
+<td>RDS 스토리지</td>
+</tr>
+<tr>
+<td><code>assac-alarm-nat-port</code></td>
+<td>NAT 포트 고갈</td>
+</tr>
+</tbody></table>
+<h3 id="1-11-iam">1.11 IAM</h3>
+<p>사람 그룹 5개, 기계 역할은 용도별로 1개.</p>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>확정 이름</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Group</td>
+<td><code>assac-network-admins</code></td>
+<td>네트워크</td>
+</tr>
+<tr>
+<td>Group</td>
+<td><code>assac-data-security-admins</code></td>
+<td>DB·Secrets·GuardDuty</td>
+</tr>
+<tr>
+<td>Group</td>
+<td><code>assac-app-deploy-admins</code></td>
+<td>WAS·Lambda·API</td>
+</tr>
+<tr>
+<td>Group</td>
+<td><code>assac-edge-security-admins</code></td>
+<td>CloudFront·WAF·S3 정적</td>
+</tr>
+<tr>
+<td>Group</td>
+<td><code>assac-ops-admins</code></td>
+<td>Bastion·관측·Terraform</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-terraform</code></td>
+<td>로컬/CI Terraform</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-github-actions</code></td>
+<td>GitHub OIDC</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-was</code></td>
+<td>WAS 인스턴스</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-bastion</code></td>
+<td>Bastion</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-lambda-waf-alert</code></td>
+<td>S1</td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>assac-role-lambda-chatbot</code></td>
+<td>S2</td>
+</tr>
+<tr>
+<td>Policy</td>
+<td><code>assac-policy-&lt;역할-용도&gt;</code></td>
+<td>예: <code>assac-policy-was-ssm</code></td>
+</tr>
+</tbody></table>
+<p>그룹 이름만 복수형 <code>admins</code>를 쓴다. Role/Policy는 단수.</p>
+<h3 id="1-12-ci-cd-iac">1.12 CI/CD · IaC</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>리소스</th>
+<th>확정 이름</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I1</td>
+<td>Terraform workspace</td>
+<td><code>assac</code></td>
+<td>ops-admin</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Terraform state 버킷</td>
+<td><code>assac-terraform-state-&lt;acct4&gt;</code></td>
+<td>ops-admin</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>State lock 테이블</td>
+<td><code>assac-terraform-lock</code></td>
+<td>ops-admin</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>GitHub repo / Actions</td>
+<td>리포 이름 유지</td>
+<td>app-deploy-admin</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-새-리소스-이름-조합">2. 새 리소스 이름 조합</h2>
+<p>인벤토리에 있으면 1장 이름을 쓴다.
+인벤토리에 없어도 <strong>이름을 만들어 준다.</strong> 2장 규칙을 따른다.</p>
+<h3 id="2-0-자주-쓰는-조합">2.0 자주 쓰는 조합</h3>
+<p>용도는 영어 소문자+하이픈. 한글을 음역하지 않고 의미를 짧게 옮긴다.</p>
+<table>
+<thead>
+<tr>
+<th>종류</th>
+<th>형식</th>
+<th>예</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Lambda</td>
+<td><code>assac-lambda-&lt;기능&gt;</code></td>
+<td>부하테스트 → <code>assac-lambda-load-test</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>이미지 리사이즈 → <code>assac-lambda-image-resize</code></td>
+</tr>
+<tr>
+<td>API Gateway</td>
+<td><code>assac-apigw-&lt;기능&gt;</code></td>
+<td><code>assac-apigw-load-test</code></td>
+</tr>
+<tr>
+<td>Security Group</td>
+<td><code>assac-sg-&lt;용도&gt;</code></td>
+<td><code>assac-sg-load-test</code></td>
+</tr>
+<tr>
+<td>SNS</td>
+<td><code>assac-sns-&lt;용도&gt;</code></td>
+<td><code>assac-sns-load-test</code></td>
+</tr>
+<tr>
+<td>CW Alarm</td>
+<td><code>assac-alarm-&lt;지표&gt;</code></td>
+<td><code>assac-alarm-lambda-errors</code></td>
+</tr>
+<tr>
+<td>CW Log Group</td>
+<td><code>/assac/&lt;서비스&gt;</code></td>
+<td><code>/assac/lambda-load-test</code></td>
+</tr>
+<tr>
+<td>IAM Role</td>
+<td><code>assac-role-&lt;용도&gt;</code></td>
+<td><code>assac-role-lambda-load-test</code></td>
+</tr>
+</tbody></table>
+<h3 id="2-1-허용-문자">2.1 허용 문자</h3>
+<ul>
+<li>소문자 <code>a-z</code>, 숫자 <code>0-9</code>, 하이픈 <code>-</code>만.</li>
+<li>언더스코어 <code>_</code>, 대문자, 공백, 한글 금지.</li>
+<li>하이픈으로 시작/끝 금지. 하이픈 연속 <code>--</code> 금지.</li>
+<li><code>prod</code>, <code>dev</code>, <code>az-a</code> 금지. AZ는 마지막 한 글자 <code>a</code> 또는 <code>c</code>.</li>
+</ul>
+<h3 id="2-2-기본-형식">2.2 기본 형식</h3>
+<pre><code>assac-&lt;계층&gt;-&lt;용도&gt;-&lt;번호&gt;
+</code></pre>
+<ul>
+<li>계층: 2.3 약어만. 새 약어는 이 표에 추가한 뒤에만 사용.</li>
+<li>용도: 역할(<code>was</code>,<code>alb</code>) 또는 기능(<code>waf-alert</code>). 한 리소스에 역할이 있으면 앱 이름(<code>petclinic</code>)을 넣지 않는다.</li>
+<li>번호: 같은 계층+용도가 <strong>2개 이상</strong>일 때만 <code>01</code>부터. 1개면 생략 (<code>assac-bastion</code>).</li>
+<li><code>petclinic</code>을 넣어도 되는 곳은 RDS, Secrets, SNG, (해당 시) ECR뿐이다.</li>
+</ul>
+<h3 id="2-3-약어-이-단어만">2.3 약어 (이 단어만)</h3>
+<table>
+<thead>
+<tr>
+<th>약어</th>
+<th>쓰는 곳</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vpc, igw, subnet, rt, nacl, nat, eip, sg</td>
+<td>네트워크</td>
+</tr>
+<tr>
+<td>public, was, db, alb, bastion, internal</td>
+<td>역할·구간</td>
+</tr>
+<tr>
+<td>lt, asg, tg, profile</td>
+<td>컴퓨트</td>
+</tr>
+<tr>
+<td>rds, sng</td>
+<td>데이터</td>
+</tr>
+<tr>
+<td>waf, cdn, cert</td>
+<td>엣지</td>
+</tr>
+<tr>
+<td>lambda, apigw, sns</td>
+<td>서버리스/메시징</td>
+</tr>
+<tr>
+<td>amp, amg, alarm, dashboard, budget</td>
+<td>관측</td>
+</tr>
+<tr>
+<td>role, policy, profile</td>
+<td>IAM</td>
+</tr>
+<tr>
+<td>static, logs, terraform-state, terraform-lock</td>
+<td>스토리지/IaC</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-슬래시-예외-이-두-종류만">2.4 슬래시 예외 (이 두 종류만)</h3>
+<table>
+<thead>
+<tr>
+<th>리소스</th>
+<th>형식</th>
+<th>예</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Secrets Manager</td>
+<td><code>assac/rds/&lt;db명&gt;</code></td>
+<td><code>assac/rds/petclinic</code></td>
+</tr>
+<tr>
+<td>CloudWatch Log Group</td>
+<td><code>/assac/&lt;서비스&gt;</code></td>
+<td><code>/assac/waf-logs</code></td>
+</tr>
+</tbody></table>
+<p>Secrets를 <code>assac-rds-petclinic</code>로 부르지 않는다. 로그를 <code>assac-waf-logs</code>로 부르지 않는다.</p>
+<h3 id="2-5-이름을-aws가-정하는-리소스">2.5 이름을 AWS가 정하는 리소스</h3>
+<p>우리가 정하는 값은 Comment 또는 Tag <code>Name</code>이다.</p>
+<table>
+<thead>
+<tr>
+<th>리소스</th>
+<th>우리가 적는 값</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CloudFront Distribution</td>
+<td>Comment <code>assac-cdn</code></td>
+</tr>
+<tr>
+<td>CloudFront VPC Origin</td>
+<td>Comment <code>assac-vpc-origin</code></td>
+</tr>
+<tr>
+<td>ACM</td>
+<td>Tag <code>Name=assac-cert</code></td>
+</tr>
+<tr>
+<td>GuardDuty detector</td>
+<td>Tag <code>Name=assac-guardduty</code></td>
+</tr>
+<tr>
+<td>Bedrock</td>
+<td>이름 없음</td>
+</tr>
+<tr>
+<td>Route53</td>
+<td>도메인 그대로</td>
+</tr>
+</tbody></table>
+<h3 id="2-6-길이">2.6 길이</h3>
+<p>만들 이름이 AWS 한도를 넘으면 용도를 줄이지 말고 팀에 공유한다. 임의로 <code>assac-waf-cf</code>처럼 축약하지 않는다.</p>
+<hr>
+<h2 id="3-혼동-방지">3. 혼동 방지</h2>
+<table>
+<thead>
+<tr>
+<th>사람이 말하는 것</th>
+<th>맞는 리소스</th>
+<th>틀린 답</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DB 서브넷</td>
+<td><code>assac-subnet-db-a</code>, <code>assac-subnet-db-c</code></td>
+<td><code>assac-sng-petclinic</code>, <code>assac-dbsubnet-petclinic</code></td>
+</tr>
+<tr>
+<td>DB 서브넷 그룹 / SNG</td>
+<td><code>assac-sng-petclinic</code></td>
+<td><code>assac-subnet-db-*</code></td>
+</tr>
+<tr>
+<td>RDS / DB 인스턴스</td>
+<td><code>assac-rds-petclinic</code></td>
+<td>서브넷 이름</td>
+</tr>
+<tr>
+<td>WAS 서브넷</td>
+<td><code>assac-subnet-was-a</code>, <code>assac-subnet-was-c</code></td>
+<td><code>assac-was-01</code></td>
+</tr>
+<tr>
+<td>WAS 서버 / EC2</td>
+<td><code>assac-was-01</code>, <code>assac-was-02</code></td>
+<td>서브넷 이름</td>
+</tr>
+<tr>
+<td>내부 ALB / ALB</td>
+<td><code>assac-alb-internal</code></td>
+<td>퍼블릭 ALB</td>
+</tr>
+<tr>
+<td>WAF</td>
+<td><code>assac-waf-cloudfront</code></td>
+<td>ALB WAF</td>
+</tr>
+<tr>
+<td>정적 버킷</td>
+<td><code>assac-static-&lt;acct4&gt;</code></td>
+<td>terraform-state 버킷</td>
+</tr>
+<tr>
+<td>로그 버킷</td>
+<td><code>assac-logs-&lt;acct4&gt;</code></td>
+<td>Log Group</td>
+</tr>
+<tr>
+<td>WAF 로그</td>
+<td><code>/assac/waf-logs</code></td>
+<td>S3 로그 버킷만 말하기</td>
+</tr>
+<tr>
+<td>Lambda</td>
+<td>기능까지 물어보고 S1/S2 중 하나</td>
+<td>그냥 <code>assac-lambda</code></td>
+</tr>
+<tr>
+<td>챗봇 API</td>
+<td><code>assac-apigw-chatbot</code> + <code>assac-lambda-chatbot</code></td>
+<td>새 이름 창작</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-태그">4. 태그</h2>
+<p>이름을 제안할 때 태그를 묻지 않아도 <strong>항상 같이 적는다.</strong>
+필수 2개만. <code>Project</code>, <code>Environment</code> 금지.</p>
+<table>
+<thead>
+<tr>
+<th>키</th>
+<th>값</th>
+<th>규칙</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Team</code></td>
+<td><code>ASSAC</code></td>
+<td>고정</td>
+</tr>
+<tr>
+<td><code>Owner</code></td>
+<td>아래 5개 중 하나</td>
+<td>개인 이름 금지</td>
+</tr>
+</tbody></table>
+<p>Owner 허용 값: <code>network-admin</code>, <code>data-security-admin</code>, <code>app-deploy-admin</code>, <code>edge-security-admin</code>, <code>ops-admin</code>.
+인벤토리 표의 Owner를 그대로 쓴다.</p>
+<p>선택 태그:</p>
+<table>
+<thead>
+<tr>
+<th>키</th>
+<th>값</th>
+<th>언제</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ManagedBy</code></td>
+<td><code>terraform</code> 또는 <code>console</code></td>
+<td>Terraform 전환 추적용</td>
+</tr>
+<tr>
+<td><code>AutoOnOff</code></td>
+<td><code>true</code> / <code>false</code></td>
+<td>Bastion만 <code>true</code>가 기본</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-운영-규칙">5. 운영 규칙</h2>
+<ul>
+<li>생성·삭제는 Slack에 한 줄. 삭제는 사전 공유 후.</li>
+<li><code>terraform apply</code>는 채널 공유 후. state는 <code>assac-terraform-state-&lt;acct4&gt;</code>만. 로컬 state 금지.</li>
+<li>Terraform 관리 리소스는 콘솔에서 고치지 않는다.</li>
+<li>Access Key는 <code>.aws/credentials</code>만. Slack/GitHub 평문 금지. MFA 필수.</li>
+<li>Bastion은 <code>AutoOnOff=true</code>. 작업 끝나면 중지.</li>
+</ul>
+<hr>
+<h2 id="6-한눈에-보는-확정-이름">6. 한눈에 보는 확정 이름</h2>
+<pre><code>네트워크
+  assac-vpc
+  assac-igw
+  assac-subnet-public-a / public-c / was-a / was-c / db-a / db-c
+  assac-rt-public / was / db
+  assac-nacl-public / was / db
+  assac-nat-a
+  assac-eip-nat-a
+  assac-sg-alb / was / db / bastion / lambda / apigw
+
+컴퓨트
+  assac-alb-internal
+  assac-tg-was
+  assac-lt-was
+  assac-asg-was
+  assac-was-01 / assac-was-02
+  assac-bastion
+  assac-sns-asg-alert
+
+데이터
+  assac-rds-petclinic
+  assac-sng-petclinic
+  assac/rds/petclinic
+
+엣지·스토리지
+  petclinic.hyeon.im
+  assac-cdn (Comment) / assac-vpc-origin (Comment) / assac-cert (Tag)
+  assac-waf-cloudfront
+  assac-static-&lt;acct4&gt;
+  assac-logs-&lt;acct4&gt;
+  assac-terraform-state-&lt;acct4&gt;
+  assac-terraform-lock
+
+서버리스
+  assac-lambda-waf-alert
+  assac-lambda-chatbot
+  assac-apigw-chatbot
+
+로그·관측
+  /assac/waf-logs /was /alb /lambda-waf-alert /lambda-chatbot
+  assac-dashboard
+  assac-alarm-*
+  assac-amp / assac-amg
+</code></pre>
+
+
+      <footer>ASSAC naming handbook · 원문 미변경 · 공유용 렌더</footer>
+    </main>
+  </div>
+</body>
+</html>
