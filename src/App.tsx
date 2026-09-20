@@ -138,8 +138,11 @@ export function App() {
       if (!response.ok) {
         const payload = (await response.json().catch(() => ({}))) as {
           error?: string
+          detail?: string
         }
-        throw new Error(payload.error || "요청에 실패했습니다.")
+        throw new Error(
+          payload.error || payload.detail || "요청에 실패했습니다.",
+        )
       }
 
       const reply = await readChatStream(response, (textSoFar) => {
