@@ -124,7 +124,7 @@ RDS 엔드포인트·스냅샷 설명에도 `assac-rds-petclinic`을 쓴다.
 
 | # | AWS 리소스 | 확정 이름 | Owner | 비고 |
 |---|---|---|---|---|
-| O1 | CW Log Group (WAF) | `/assac/waf-logs` | edge-security-admin | 앞 슬래시 필수 |
+| O1 | CW Log Group (WAF) | `aws-waf-logs-assac` | edge-security-admin | AWS WAF CloudWatch 연동. `aws-waf-logs-` 접두사 필수. `/assac/waf-logs` 금지 |
 | O2 | CW Log Group (WAS) | `/assac/was` | app-deploy-admin | |
 | O3 | CW Log Group (ALB) | `/assac/alb` | network-admin | |
 | O4 | CW Log Group (Lambda WAF) | `/assac/lambda-waf-alert` | edge-security-admin | |
@@ -207,6 +207,7 @@ RDS 엔드포인트·스냅샷 설명에도 `assac-rds-petclinic`을 쓴다.
 - 언더스코어 `_`, 대문자, 공백, 한글 금지.
 - 하이픈으로 시작/끝 금지. 하이픈 연속 `--` 금지.
 - `prod`, `dev`, `az-a` 금지. AZ는 마지막 한 글자 `a` 또는 `c`.
+- 이름은 보통 `assac-`로 시작한다. **유일한 예외:** WAF CloudWatch 로그 그룹 `aws-waf-logs-assac`.
 
 ### 2.2 기본 형식
 
@@ -233,14 +234,17 @@ assac-<계층>-<용도>-<번호>
 | role, policy, profile | IAM |
 | static, logs, terraform-state, terraform-lock | 스토리지/IaC |
 
-### 2.4 슬래시 예외 (이 두 종류만)
+### 2.4 슬래시 예외와 AWS 강제 접두사
 
 | 리소스 | 형식 | 예 |
 |---|---|---|
 | Secrets Manager | `assac/rds/<db명>` | `assac/rds/petclinic` |
-| CloudWatch Log Group | `/assac/<서비스>` | `/assac/waf-logs` |
+| CloudWatch Log Group | `/assac/<서비스>` | `/assac/was` |
+| CloudWatch Log Group (WAF만) | `aws-waf-logs-assac` | WAF→CloudWatch 연동. 접두사 `aws-waf-logs-`를 AWS가 강제한다 |
 
-Secrets를 `assac-rds-petclinic`로 부르지 않는다. 로그를 `assac-waf-logs`로 부르지 않는다.
+Secrets를 `assac-rds-petclinic`로 부르지 않는다.
+일반 로그를 `assac-was`처럼 하이픈으로 부르지 않는다.
+WAF 로그 그룹만 예외다. `/assac/waf-logs`나 `assac-waf-logs`가 아니라 `aws-waf-logs-assac`이다.
 
 ### 2.5 이름을 AWS가 정하는 리소스
 
@@ -274,7 +278,7 @@ Secrets를 `assac-rds-petclinic`로 부르지 않는다. 로그를 `assac-waf-lo
 | WAF | `assac-waf-cloudfront` | ALB WAF |
 | 정적 버킷 | `assac-static-<acct4>` | terraform-state 버킷 |
 | 로그 버킷 | `assac-logs-<acct4>` | Log Group |
-| WAF 로그 | `/assac/waf-logs` | S3 로그 버킷만 말하기 |
+| WAF 로그 | `aws-waf-logs-assac` | `/assac/waf-logs`, S3 로그 버킷 |
 | Lambda | 기능까지 물어보고 S1/S2 중 하나 | 그냥 `assac-lambda` |
 | 챗봇 API | `assac-apigw-chatbot` + `assac-lambda-chatbot` | 새 이름 창작 |
 
@@ -354,7 +358,8 @@ Owner 허용 값: `network-admin`, `data-security-admin`, `app-deploy-admin`, `e
   assac-apigw-chatbot
 
 로그·관측
-  /assac/waf-logs /was /alb /lambda-waf-alert /lambda-chatbot
+  aws-waf-logs-assac
+  /assac/was /alb /lambda-waf-alert /lambda-chatbot
   assac-dashboard
   assac-alarm-*
   assac-amp / assac-amg

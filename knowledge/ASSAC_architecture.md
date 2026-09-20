@@ -15,7 +15,7 @@
 2. CloudFront path routing
    - 정적 → `assac-static-<acct4>`
    - 앱 → VPC Origin → `assac-alb-internal` → `assac-tg-was` → `assac-asg-was`
-3. WAF(`assac-waf-cloudfront`) → `/assac/waf-logs` → `assac-lambda-waf-alert` → Slack
+3. WAF(`assac-waf-cloudfront`) → `aws-waf-logs-assac` → `assac-lambda-waf-alert` → Slack
 
 ## 서브넷 배치
 
