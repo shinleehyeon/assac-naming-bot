@@ -24,28 +24,28 @@ type ChatMessage = {
 }
 
 const WELCOME =
-  "어떤 리소스 이름을 지을까요? 예: WAS용 Security Group, petclinic RDS, 알림용 Lambda."
+  "어떤 리소스 이름을 지을까요? 기본은 최종 프로젝트(항공기 지연 분석) 기준이에요. 예: 인천공항 수집 Lambda, Glue 정제 작업, Flink 앱."
 
 const SUGGESTIONS = [
   {
-    label: "SG / WAS",
-    prompt: "WAS용 Security Group 이름 지어줘",
+    label: "수집 Lambda",
+    prompt: "인천공항 운항 수집 Lambda 이름과 실행 역할 이름 지어줘",
   },
   {
-    label: "RDS",
-    prompt: "petclinic RDS 인스턴스 이름과 필수 태그 알려줘",
+    label: "Glue",
+    prompt: "원본 정제용 Glue 작업이랑 Athena 데이터베이스 이름 알려줘",
   },
   {
-    label: "Subnet",
-    prompt: "WAS 서브넷이랑 DB 서브넷 이름 지어줘",
+    label: "Flink",
+    prompt: "실시간 처리 Flink 앱과 DynamoDB 테이블 이름 지어줘",
   },
   {
-    label: "Lambda",
-    prompt: "WAF 알림용 Lambda 이름 추천해줘",
+    label: "S3 경로",
+    prompt: "ADS-B 원본을 데이터 레이크 어디에 어떤 경로로 저장해?",
   },
   {
-    label: "아키텍처",
-    prompt: "우리 아키텍처에서 내부 ALB랑 WAS는 어디에 있어? 이름도 알려줘",
+    label: "중간 플젝",
+    prompt: "중간 프로젝트 petclinic RDS 이름과 필수 태그 알려줘",
   },
 ] as const
 
@@ -72,7 +72,7 @@ function parseAssistantReply(text: string) {
   const names = [
     ...text.matchAll(/`([^`]+)`/g),
     ...text.matchAll(
-      /(?<!`)\b(assac(?:\/[a-z0-9-]+)+|assac-[a-z0-9-]+(?:\/[a-z0-9-]+)*|\/assac\/[a-z0-9-]+)\b/g,
+      /(?<!`)\b(assac(?:\/[a-z0-9-]+)+|assac-[a-z0-9-]+(?:\/[a-z0-9-]+)*|\/assac\/[a-z0-9_-]+)\b/g,
     ),
   ]
     .map((match) => match[1])
@@ -422,7 +422,7 @@ export function App() {
               <Textarea
                 value={input}
                 disabled={pending}
-                placeholder="예: 내부 ALB 이름 지어줘"
+                placeholder="예: 기상 수집 Lambda 이름 지어줘"
                 className="min-h-12 resize-none"
                 onChange={(event) => setInput(event.target.value)}
                 onKeyDown={(event) => {
