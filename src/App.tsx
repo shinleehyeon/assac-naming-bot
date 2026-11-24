@@ -33,7 +33,7 @@ const SUGGESTIONS = [
   },
   {
     label: "Glue",
-    prompt: "원본 정제용 Glue 작업이랑 Athena 데이터베이스 이름 알려줘",
+    prompt: "항공정보포털 원본 정제용 Glue 작업이랑 Athena 데이터베이스·테이블 이름 알려줘",
   },
   {
     label: "Flink",
@@ -41,7 +41,7 @@ const SUGGESTIONS = [
   },
   {
     label: "S3 경로",
-    prompt: "ADS-B 원본을 데이터 레이크 어디에 어떤 경로로 저장해?",
+    prompt: "ADS-B 원본을 데이터 레이크 어디에 어떤 경로로 저장하고, 정제 테이블 컬럼 이름은 어떻게 지어?",
   },
   {
     label: "중간 플젝",
