@@ -291,28 +291,37 @@ export function App() {
             Naming Bot
           </h1>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            있는 리소스는 확정 이름, 없는 리소스는 컨벤션으로 조합해
-            제안합니다.
+            기본은 최종 프로젝트(항공편 지연 정보 서비스) 기준이에요. 이미
+            만든 리소스는 확정 이름, 없는 리소스는 규칙으로 조합해요.
           </p>
 
           <Card className="mt-6">
             <CardHeader>
-              <CardTitle>표에 없을 때만</CardTitle>
+              <CardTitle>최종 프로젝트 이름 문법</CardTitle>
               <CardDescription>
-                리소스별 표가 우선입니다. 없는 항목만 이 패턴을 씁니다.
+                인벤토리에 없을 때만 이 형식으로 조합해요.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <code className="font-mono text-xs break-all">
-                assac-&lt;계층&gt;-&lt;용도&gt;-&lt;번호&gt;
+            <CardContent className="space-y-2">
+              <p className="text-xs text-muted-foreground">기본 (종류가 앞)</p>
+              <code className="block font-mono text-xs break-all">
+                assac-&lt;종류&gt;-&lt;대상&gt;[-&lt;세부&gt;][-&lt;AZ/번호&gt;]
+              </code>
+              <p className="text-xs text-muted-foreground">Lambda (동사가 앞)</p>
+              <code className="block font-mono text-xs break-all">
+                assac-&lt;동사&gt;-&lt;대상&gt;
+              </code>
+              <p className="text-xs text-muted-foreground">IAM 역할</p>
+              <code className="block font-mono text-xs break-all">
+                assac-&lt;리소스&gt;-role
               </code>
             </CardContent>
           </Card>
 
           <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-            <li>리소스 종류, 용도, 또는 아키텍처 위치를 알려주세요</li>
-            <li>이름에 prod는 넣지 않습니다. Owner는 역할명</li>
-            <li>물어볼 필요 없이 이름과 태그(Team, Owner)를 함께 제안합니다</li>
+            <li>소스 이름은 kac, icn, adsb, weather, airportal만 써요</li>
+            <li>Owner는 ingest-admin, stream-admin, batch-admin, platform-admin 중 하나예요</li>
+            <li>중간 프로젝트(petclinic) 이름은 "중간 프로젝트"라고 붙여서 물어보세요</li>
           </ul>
         </aside>
 
