@@ -4,7 +4,8 @@
   "framework": "vite",
   "functions": {
     "api/chat.js": {
-      "includeFiles": "knowledge/**"
+      "includeFiles": "knowledge/**",
+      "maxDuration": 30
     }
   }
 }

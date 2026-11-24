@@ -319,7 +319,7 @@ export function App() {
           </Card>
 
           <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-            <li>소스 이름은 소스 하나에 하나만 써요 (지금: kac, icn, adsb, weather, airportal). 새 데이터는 문서 3.2에 추가해서 써요</li>
+            <li>지금 있는 리소스와 데이터 소스(raw/ 폴더)는 AWS에서 5분마다 자동으로 읽어요. 문서를 고칠 필요 없어요</li>
             <li>Owner는 ingest-admin, stream-admin, batch-admin, platform-admin 중 하나예요</li>
             <li>중간 프로젝트(petclinic) 이름은 "중간 프로젝트"라고 붙여서 물어보세요</li>
           </ul>
